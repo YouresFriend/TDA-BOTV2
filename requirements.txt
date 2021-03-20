@@ -1,8 +1,2 @@
-discord
-base64
-json
-random
-datetime
-time
+discord.py
 requests
-os
