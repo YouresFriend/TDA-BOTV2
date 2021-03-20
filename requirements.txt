@@ -1,0 +1,10 @@
+discord
+base64
+json
+random
+datetime
+time
+from discord.ext commands
+from discord.ext.commands bot
+requests
+os
