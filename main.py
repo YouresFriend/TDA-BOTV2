@@ -5,7 +5,6 @@ import discord, datetime, time
 from discord.ext import commands
 from discord.ext.commands import bot
 import requests
-import os
 
 CHANNEL_ID = '822799450195361802'
 
@@ -14,37 +13,11 @@ bot = commands.Bot(command_prefix='c!',
 
 STARTUP_MESSAGE = 'Ready'
 
-start_time = time.time()
-
-
 @bot.event
 async def on_ready():
     print(STARTUP_MESSAGE)
     await bot.change_presence(status=discord.Status.online,
                               activity=discord.Game(name=" TDA game idk forgot the name "))
-
-
-def timedelta_str(dt):
-    """time uptime"""
-    days = dt.days
-    hours, r = divmod(dt.seconds, 3600)
-    minutes, sec = divmod(r, 60)
-
-    if minutes == 1 and sec == 1:
-        return '{0} days, {1} hours, {2} minute and {3} second.'.format(days, hours, minutes, sec)
-    elif minutes > 1 and sec == 1:
-        return '{0} days, {1} hours, {2} minutes and {3} second.'.format(days, hours, minutes, sec)
-    elif minutes == 1 and sec > 1:
-        return '{0} days, {1} hours, {2} minute and {3} seconds.'.format(days, hours, minutes, sec)
-    else:
-        return '{0} days, {1} hours, {2} minutes and {3} seconds.'.format(days, hours, minutes, sec)
-
-
-@bot.command()
-async def uptime(ctx):
-    """Displays bot uptime."""
-    global start_time
-    await ctx.send(timedelta_str(datetime.datetime.now() - start_time))
 
 
 @bot.command(description='Add a suggestion.')
@@ -63,7 +36,7 @@ async def throw(ctx):
     '''
     Mad? throw a table against people.
     '''
-    await ctx.send("```(╯°□°)╯︵ ┻━┻```")
+    await ctx.send("(╯°□°)╯︵ ┻━┻")
 
 
 @bot.command(helpinfo='Shows member count.')
@@ -198,4 +171,4 @@ async def info(ctx):
     await ctx.send(embed=embed)
 
 
-bot.run(os.environ('token'))
+bot.run('token')
