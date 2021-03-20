@@ -148,15 +148,6 @@ async def group(ctx):
     await ctx.send('https://www.roblox.com/groups/6268298/The-Drones-Army#!/about')
 
 
-@bot.command(pass_context=True, helpinfo='Shows all banned people')
-async def gbans(ctx):
-    '''Gets A List Of Users Who Are No Longer With us'''
-    x = await bot.get_bans(ctx.message.server)
-    x = '\n'.join([y.name for y in x])
-    embed = discord.Embed(title="List of The Banned Idiots", description=x, color=0xFFFFF)
-    return await bot.say(embed=embed)
-
-
 @bot.command(helpinfo='Shows info about the server.')
 async def info(ctx):
     '''
