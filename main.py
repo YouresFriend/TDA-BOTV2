@@ -198,4 +198,4 @@ async def info(ctx):
     await ctx.send(embed=embed)
 
 
-bot.run(os.environ('ODIyNTY4NTQxMjgyNjMxNzgw.YFUKpg.ZXheKQ4l9vunQOYfvrrq_VlYLG4'))
+bot.run(os.environ('token'))
