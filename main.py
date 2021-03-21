@@ -6,23 +6,30 @@ from discord.ext import commands
 from discord.ext.commands import bot
 import requests
 
-CHANNEL_ID = '822799450195361802'
-
 bot = commands.Bot(command_prefix='c!',
                    description="This is TDA BOT V2, better than the V1. This is so special because I coded it all myself!")
 
 STARTUP_MESSAGE = 'Ready'
 
+
 @bot.event
 async def on_ready():
     print(STARTUP_MESSAGE)
     await bot.change_presence(status=discord.Status.online,
-                              activity=discord.Game(name=" TDA game idk forgot the name "))
+                              activity=discord.Game(name=" Dronesavia "))
 
 
-@bot.command(description='Add a suggestion.')
+@bot.command()
+async def game(ctx):
+    '''
+    Sends the game link
+    '''
+    await ctx.send('https://roblox.com/games/5244574110/Dronesavia-Brand-New-RP')
+
+
+@bot.command()
 async def suggest(ctx, *, suggestion):
-    """"Suggestion command. Sends an suggestion to an channel that might be added soon"""
+    """Suggestion command. Sends an suggestion to an channel."""
     await ctx.channel.purge(limit=1)
     channel = discord.utils.get(ctx.guild.text_channels, name='tda-bot-suggestions')
     suggestEmbed = discord.Embed(colour=0xFF0000)
@@ -31,7 +38,7 @@ async def suggest(ctx, *, suggestion):
     await channel.send(embed=suggestEmbed)
 
 
-@bot.command(helpinfo='Mad? throw a table against people.')
+@bot.command()
 async def throw(ctx):
     '''
     Mad? throw a table against people.
@@ -39,7 +46,7 @@ async def throw(ctx):
     await ctx.send("(╯°□°)╯︵ ┻━┻")
 
 
-@bot.command(helpinfo='Shows member count.')
+@bot.command()
 async def members(ctx):
     '''
     Shows member count.
@@ -47,7 +54,7 @@ async def members(ctx):
     await ctx.send(f"{ctx.guild.member_count}")
 
 
-@bot.command(helpinfo='Be an assassin')
+@bot.command()
 async def kill(ctx, *, user='You'):
     '''
     Kills the player, minecraft style
@@ -55,7 +62,7 @@ async def kill(ctx, *, user='You'):
     await ctx.send((user) + ' fell out of the world')
 
 
-@bot.command(helpinfo='Picks randomly between multiple choices')
+@bot.command()
 async def choose(ctx, *choices: str):
     '''
     Picks randomly from all choices provided.
@@ -63,7 +70,7 @@ async def choose(ctx, *choices: str):
     await ctx.send((random.choice(choices)) + ', I choose you!')
 
 
-@bot.command(helpinfo='Shows MC account info, skin and username history', aliases=['skin', 'mc'])
+@bot.command()
 async def minecraft(ctx, username='Shrek'):
     '''
     Shows MC account info, skin and username history
@@ -86,7 +93,7 @@ async def minecraft(ctx, username='Shrek'):
     await ctx.send(history)
 
 
-@bot.command(helpinfo='shows info about the user you pinged or yourself.')
+@bot.command()
 async def userinfo(ctx, *, user: discord.Member = None):
     '''
     shows info about the user you pinged or yourself.
@@ -109,7 +116,7 @@ async def userinfo(ctx, *, user: discord.Member = None):
     return await ctx.send(embed=embed)
 
 
-@bot.command(helpinfo='shows bots ping')
+@bot.command()
 async def ping(ctx):
     '''
     Shows bots ping
@@ -121,7 +128,7 @@ async def ping(ctx):
     print(f'Ping {int(ping)}ms')
 
 
-@bot.command(helpinfo='calculates for you')
+@bot.command()
 async def sum(ctx, numOne: int, numTwo: int):
     '''
     If you're too lazy to do math then here you go
@@ -140,7 +147,7 @@ async def roles(context):
     await context.send(result)
 
 
-@bot.command(helpinfo='Sends the groups link')
+@bot.command()
 async def group(ctx):
     '''
     Sends the group's link
@@ -148,7 +155,7 @@ async def group(ctx):
     await ctx.send('https://www.roblox.com/groups/6268298/The-Drones-Army#!/about')
 
 
-@bot.command(helpinfo='Shows info about the server.')
+@bot.command()
 async def info(ctx):
     '''
     Shows info about the server.
