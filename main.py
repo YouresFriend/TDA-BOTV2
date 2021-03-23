@@ -1,15 +1,22 @@
+from discord.ext import commands
+from discord.ext.commands import bot
+
 import base64
 import json
 import random
 import discord, datetime, time
 from discord.ext import commands
-from discord.ext.commands import bot
+from discord.ext.commands import bot, clean_content
 import requests
 
 bot = commands.Bot(command_prefix='c!',
                    description="This is TDA BOT V2, better than the V1. This is so special because I coded it all myself!")
 
+TOKEN = open("token.txt", "r").read()
+
 STARTUP_MESSAGE = 'Ready'
+
+bot.membercount_channel = bot.get_channel(823459333848563713)
 
 
 @bot.event
@@ -169,4 +176,54 @@ async def info(ctx):
     await ctx.send(embed=embed)
 
 
-bot.run('token')
+@bot.command(aliases=['8ball'])
+async def eightball(ctx, *, _ballInput: clean_content):
+    """extra generic just the way you like it"""
+    choiceType = random.choice(["(Affirmative)", "(Non-committal)", "(Negative)"])
+    if choiceType == "(Affirmative)":
+        prediction = random.choice(["It is certain ",
+                                    "It is decidedly so ",
+                                    "Without a doubt ",
+                                    "Yes, definitely ",
+                                    "You may rely on it ",
+                                    "As I see it, yes ",
+                                    "Most likely ",
+                                    "Outlook good ",
+                                    "Yes ",
+                                    "Signs point to yes "]) + ":8ball:"
+        emb = (discord.Embed(title="Question: {}".format(_ballInput), colour=0x3be801, description=prediction))
+    elif choiceType == "(Non-committal)":
+        prediction = random.choice(["Reply hazy try again ",
+                                    "Ask again later ",
+                                    "Better not tell you now ",
+                                    "Cannot predict now ",
+                                    "Concentrate and ask again "]) + ":8ball:"
+        emb = (discord.Embed(title="Question: {}".format(_ballInput), colour=0xff6600, description=prediction))
+    elif choiceType == "(Negative)":
+        prediction = random.choice(["Don't count on it ",
+                                    "My reply is no ",
+                                    "My sources say no ",
+                                    "Outlook not so good ",
+                                    "Very doubtful "]) + ":8ball:"
+        emb = (discord.Embed(title="Question: {}".format(_ballInput), colour=0xE80303, description=prediction))
+    emb.set_author(name='Magic 8 ball',
+                   icon_url='https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png')
+    await ctx.send(embed=emb)
+
+
+@bot.command()
+async def unoreverse(ctx):
+    '''
+    Uno reverse card. Credits to Davekuper2
+    '''
+    await ctx.send('https://tenor.com/view/reverse-card-uno-uno-cards-gif-13032597')
+
+@bot.command()
+async def accgen(ctx):
+    '''
+    Sends a link for some trusted account generators.
+    '''
+    await ctx.send('H-Gen: https://www.h-gen.xyz/ \n A-Gen: https://a-gen.xyz/ \n If you know more websites then make sure to suggest it')
+
+
+bot.run(TOKEN)
